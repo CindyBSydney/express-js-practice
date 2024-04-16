@@ -32,7 +32,7 @@ exports.updateTodo = (req, res) => {
         todo.title = title || todo.title;
         todo.priority = priority || todo.priority;
         if (done !== undefined) {
-            todo.done = done;
+            todo.done = done; 
             todo.doneAt = done ? new Date() : null;
         }
         res.status(200).send(todo);
@@ -40,4 +40,18 @@ exports.updateTodo = (req, res) => {
         res.status(404).send({ message: "TODO not found" });
     }
 };
+
+//delete the todo list
+exports.deleteTodo = (req, res) => {
+    const { id } = req.params;
+    const index = todoList.findIndex(todo => todo.id === parseInt(id));
+    if (index !== -1) {
+        todoList.splice(index, 1);
+        res.status(204).send();
+    } else {
+        res.status(404).send({ message: "TODO not found" });
+    }
+};
+
+
 
