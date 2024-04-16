@@ -23,3 +23,21 @@ exports.getTodoList = (req, res) => {
     res.status(200).send(todoList);
 };
 
+//update the todo list
+exports.updateTodo = (req, res) => {
+    const { id } = req.params;
+    const { title, priority, done } = req.body;
+    const todo = todoList.find(todo => todo.id === parseInt(id));
+    if (todo) {
+        todo.title = title || todo.title;
+        todo.priority = priority || todo.priority;
+        if (done !== undefined) {
+            todo.done = done;
+            todo.doneAt = done ? new Date() : null;
+        }
+        res.status(200).send(todo);
+    } else {
+        res.status(404).send({ message: "TODO not found" });
+    }
+};
+
