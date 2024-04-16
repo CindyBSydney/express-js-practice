@@ -16,3 +16,10 @@ exports.createTodoList = (req, res) => {
     todoList.push(newTodoList);
     res.status(201).send(newTodoList);
 };
+
+
+//return the list of TODOs created so far.
+exports.getTodoList = (req, res) => {
+    res.status(200).send(todoList);
+};
+
